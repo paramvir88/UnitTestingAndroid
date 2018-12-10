@@ -1,7 +1,8 @@
 package com.example.paramvir.unittestingsample;
 
-import android.support.v7.app.AppCompatActivity;
+import android.annotation.SuppressLint;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.widget.TextView;
 
 import butterknife.BindView;
@@ -54,17 +55,41 @@ public class CalculatorActivity extends AppCompatActivity {
     @BindView(R.id.button_plus)
     TextView plusButton;
 
+    @BindView(R.id.tv_input)
+    TextView inputTv;
+
+    @BindView(R.id.tv_result)
+    TextView resultTv;
+
+
+    @SuppressLint("SetTextI18n")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_calculator);
 
         ButterKnife.bind(this);
+
+        oneButton.setOnClickListener(view -> inputTv.setText(inputTv.getText().toString() + "1"));
+        twoButton.setOnClickListener(view -> inputTv.setText(inputTv.getText().toString() + "2"));
+        threeButton.setOnClickListener(view -> inputTv.setText(inputTv.getText().toString() + "3"));
+        fourButton.setOnClickListener(view -> inputTv.setText(inputTv.getText().toString() + "4"));
+        fiveButton.setOnClickListener(view -> inputTv.setText(inputTv.getText().toString() + "5"));
+        sixButton.setOnClickListener(view -> inputTv.setText(inputTv.getText().toString() + "6"));
+        sevenButton.setOnClickListener(view -> inputTv.setText(inputTv.getText().toString() + "7"));
+        eightButton.setOnClickListener(view -> inputTv.setText(inputTv.getText().toString() + "8"));
+        nineButton.setOnClickListener(view -> inputTv.setText(inputTv.getText().toString() + "9"));
+        zeroButton.setOnClickListener(view -> inputTv.setText(inputTv.getText().toString() + "0"));
+        plusButton.setOnClickListener(view -> inputTv.setText(inputTv.getText().toString() + "+"));
+        minusButton.setOnClickListener(view -> inputTv.setText(inputTv.getText().toString() + "-"));
+        multiplyButton.setOnClickListener(view -> inputTv.setText(inputTv.getText().toString() +
+                "x"));
+        divisionButton.setOnClickListener(view -> inputTv.setText(inputTv.getText().toString() +
+                "/"));
+        equalButton.setOnClickListener(view -> inputTv.setText(inputTv.getText().toString() + "="));
+
+
     }
-
-
-
-
 
 
 }

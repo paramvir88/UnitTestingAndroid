@@ -16,6 +16,15 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+    testOptions {
+        unitTests {
+            includeAndroidResources = true
+        }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
 }
 
 dependencies {
@@ -29,4 +38,7 @@ dependencies {
     testImplementation 'org.mockito:mockito-core:2.10.0'
     implementation 'com.jakewharton:butterknife:9.0.0-rc2'
     annotationProcessor 'com.jakewharton:butterknife-compiler:9.0.0-rc2'
+    testImplementation 'org.robolectric:robolectric:4.0.2'
+    testAnnotationProcessor 'com.jakewharton:butterknife-compiler:9.0.0-rc2'
+    androidTestAnnotationProcessor 'com.jakewharton:butterknife-compiler:9.0.0-rc2'
 }

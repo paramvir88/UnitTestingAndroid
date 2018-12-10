@@ -71,6 +71,9 @@ public class CalculatorActivity extends AppCompatActivity {
 
     Calculator calculator = new Calculator();
 
+    public Calculator getCalculator() {
+        return calculator;
+    }
 
     @SuppressLint("SetTextI18n")
     @Override
@@ -82,9 +85,12 @@ public class CalculatorActivity extends AppCompatActivity {
 
         oneButton.setOnClickListener(view -> {
             inputTv.setText(inputTv.getText().toString() + "1");
-
+            calculator.onNewValueInput(1);
         });
-        twoButton.setOnClickListener(view -> inputTv.setText(inputTv.getText().toString() + "2"));
+        twoButton.setOnClickListener(view -> {
+            inputTv.setText(inputTv.getText().toString() + "2");
+            calculator.onNewValueInput(2);
+        });
         threeButton.setOnClickListener(view -> inputTv.setText(inputTv.getText().toString() + "3"));
         fourButton.setOnClickListener(view -> inputTv.setText(inputTv.getText().toString() + "4"));
         fiveButton.setOnClickListener(view -> inputTv.setText(inputTv.getText().toString() + "5"));

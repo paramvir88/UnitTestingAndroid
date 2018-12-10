@@ -5,9 +5,8 @@ import android.content.Intent;
 import android.view.MenuItem;
 import android.widget.TextView;
 
-import org.hamcrest.Matchers;
-import org.junit.Assert;
 import org.junit.Before;
+import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.robolectric.Robolectric;
@@ -75,8 +74,7 @@ public class CalculatorActivityTest {
     TextView resultTv;
 
     MenuItem infoMenu;
-    Activity activity;
-
+    CalculatorActivity activity;
 
     @Before
     public void setup() {
@@ -191,12 +189,45 @@ public class CalculatorActivityTest {
     }
 
     @Test
-    public void clickingInfoMenu_shouldGoToInfoActivity(){
+    public void clickingInfoMenu_shouldGoToInfoActivity() {
         activity.onOptionsItemSelected(infoMenu);
         Intent expectedIntent = new Intent(activity, InfoActivity.class);
         Intent actual = shadowOf(RuntimeEnvironment.application).getNextStartedActivity();
         assertEquals(expectedIntent.getComponent(), actual.getComponent());
     }
+
+        /*
+    when an input button is clicked - it should be either assigned to :
+    1. leftOperand if the operator is not there and also there is no leftOperand already. If
+    leftOperand is there, it would be added as one more digit to leftOperand.
+    2. rightOperand if the operator is already there and if there is no righOperand.
+     */
+
+    @Test
+    public void clickInputButtonOne_shouldAssignToLeftOperandIfOperatorAndLeftOperandNotThere() {
+        oneButton.performClick();
+        assertEquals(1, activity.getCalculator().getLeftOperand());
+    }
+
+    @Test
+    public void clickInputButtons_shouldAssignToLeftOperandIfOperatorAndLeftOperandNotThere() {
+        twoButton.performClick();
+        twoButton.performClick();
+        oneButton.performClick();
+        oneButton.performClick();
+        twoButton.performClick();
+        assertEquals(22112, activity.getCalculator().getLeftOperand());
+    }
+
+    @Test
+    public void clickInputButtons_shouldAssignToRightOperand() {
+        activity.calculator.assignLeftOperand(1);
+        activity.calculator.assignOperator("+");
+        twoButton.performClick();
+        assertEquals(2, activity.getCalculator().getRightOperand());
+    }
+
+
 
 
 

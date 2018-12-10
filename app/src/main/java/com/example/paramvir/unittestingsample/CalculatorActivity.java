@@ -1,8 +1,11 @@
 package com.example.paramvir.unittestingsample;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.widget.TextView;
 
 import butterknife.BindView;
@@ -61,6 +64,13 @@ public class CalculatorActivity extends AppCompatActivity {
     @BindView(R.id.tv_result)
     TextView resultTv;
 
+    int leftOperand;
+    int rightOperand;
+    int result;
+
+
+    Calculator calculator = new Calculator();
+
 
     @SuppressLint("SetTextI18n")
     @Override
@@ -70,7 +80,10 @@ public class CalculatorActivity extends AppCompatActivity {
 
         ButterKnife.bind(this);
 
-        oneButton.setOnClickListener(view -> inputTv.setText(inputTv.getText().toString() + "1"));
+        oneButton.setOnClickListener(view -> {
+            inputTv.setText(inputTv.getText().toString() + "1");
+
+        });
         twoButton.setOnClickListener(view -> inputTv.setText(inputTv.getText().toString() + "2"));
         threeButton.setOnClickListener(view -> inputTv.setText(inputTv.getText().toString() + "3"));
         fourButton.setOnClickListener(view -> inputTv.setText(inputTv.getText().toString() + "4"));
@@ -91,5 +104,21 @@ public class CalculatorActivity extends AppCompatActivity {
 
     }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.calculator_menu, menu);
+        return true;
+    }
 
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == R.id.info) {
+            goToInfoScreen();
+        }
+        return true;
+    }
+
+    private void goToInfoScreen() {
+        startActivity(new Intent(this, InfoActivity.class));
+    }
 }

@@ -1,17 +1,25 @@
 package com.example.paramvir.unittestingsample;
 
 import android.app.Activity;
+import android.content.Intent;
+import android.view.MenuItem;
 import android.widget.TextView;
 
+import org.hamcrest.Matchers;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.robolectric.Robolectric;
 import org.robolectric.RobolectricTestRunner;
+import org.robolectric.RuntimeEnvironment;
+import org.robolectric.fakes.RoboMenuItem;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+
+import static org.junit.Assert.assertEquals;
+import static org.robolectric.Shadows.shadowOf;
 
 @RunWith(RobolectricTestRunner.class)
 public class CalculatorActivityTest {
@@ -66,117 +74,133 @@ public class CalculatorActivityTest {
     @BindView(R.id.tv_result)
     TextView resultTv;
 
+    MenuItem infoMenu;
+    Activity activity;
+
 
     @Before
     public void setup() {
-        Activity activity = Robolectric.setupActivity(CalculatorActivity.class);
+        activity = Robolectric.setupActivity(CalculatorActivity.class);
         ButterKnife.bind(this, activity);
+        infoMenu = new RoboMenuItem(R.id.info);
     }
 
     @Test
     public void testButtonOneFunctionality() {
         String input = inputTv.getText().toString();
         oneButton.performClick();
-        Assert.assertEquals(input + "1", inputTv.getText().toString());
+        assertEquals(input + "1", inputTv.getText().toString());
     }
 
     @Test
     public void testButtonTwoFunctionality() {
         String input = inputTv.getText().toString();
         twoButton.performClick();
-        Assert.assertEquals(input + "2", inputTv.getText().toString());
+        assertEquals(input + "2", inputTv.getText().toString());
     }
 
     @Test
     public void testButtonThreeFunctionality() {
         String input = inputTv.getText().toString();
         threeButton.performClick();
-        Assert.assertEquals(input + "3", inputTv.getText().toString());
+        assertEquals(input + "3", inputTv.getText().toString());
     }
 
     @Test
     public void testButtonFourFunctionality() {
         String input = inputTv.getText().toString();
         fourButton.performClick();
-        Assert.assertEquals(input + "4", inputTv.getText().toString());
+        assertEquals(input + "4", inputTv.getText().toString());
     }
 
     @Test
     public void testButtonFiveFunctionality() {
         String input = inputTv.getText().toString();
         fiveButton.performClick();
-        Assert.assertEquals(input + "5", inputTv.getText().toString());
+        assertEquals(input + "5", inputTv.getText().toString());
     }
 
     @Test
     public void testButtonSixFunctionality() {
         String input = inputTv.getText().toString();
         sixButton.performClick();
-        Assert.assertEquals(input + "6", inputTv.getText().toString());
+        assertEquals(input + "6", inputTv.getText().toString());
     }
 
     @Test
     public void testButtonSevenFunctionality() {
         String input = inputTv.getText().toString();
         sevenButton.performClick();
-        Assert.assertEquals(input + "7", inputTv.getText().toString());
+        assertEquals(input + "7", inputTv.getText().toString());
     }
 
     @Test
     public void testButtonEightFunctionality() {
         String input = inputTv.getText().toString();
         eightButton.performClick();
-        Assert.assertEquals(input + "8", inputTv.getText().toString());
+        assertEquals(input + "8", inputTv.getText().toString());
     }
 
     @Test
     public void testButtonNineFunctionality() {
         String input = inputTv.getText().toString();
         nineButton.performClick();
-        Assert.assertEquals(input + "9", inputTv.getText().toString());
+        assertEquals(input + "9", inputTv.getText().toString());
     }
 
     @Test
     public void testButtonZeroFunctionality() {
         String input = inputTv.getText().toString();
         zeroButton.performClick();
-        Assert.assertEquals(input + "0", inputTv.getText().toString());
+        assertEquals(input + "0", inputTv.getText().toString());
     }
 
     @Test
     public void testButtonPlusFunctionality() {
         String input = inputTv.getText().toString();
         plusButton.performClick();
-        Assert.assertEquals(input + "+", inputTv.getText().toString());
+        assertEquals(input + "+", inputTv.getText().toString());
     }
 
     @Test
     public void testButtonMinusFunctionality() {
         String input = inputTv.getText().toString();
         minusButton.performClick();
-        Assert.assertEquals(input + "-", inputTv.getText().toString());
+        assertEquals(input + "-", inputTv.getText().toString());
     }
 
     @Test
     public void testButtonMultiplyFunctionality() {
         String input = inputTv.getText().toString();
         multiplyButton.performClick();
-        Assert.assertEquals(input + "x", inputTv.getText().toString());
+        assertEquals(input + "x", inputTv.getText().toString());
     }
 
     @Test
     public void testButtonDivideFunctionality() {
         String input = inputTv.getText().toString();
         divisionButton.performClick();
-        Assert.assertEquals(input + "/", inputTv.getText().toString());
+        assertEquals(input + "/", inputTv.getText().toString());
     }
 
     @Test
     public void testButtonEqualFunctionality() {
         String input = inputTv.getText().toString();
         equalButton.performClick();
-        Assert.assertEquals(input + "=", inputTv.getText().toString());
+        assertEquals(input + "=", inputTv.getText().toString());
     }
+
+    @Test
+    public void clickingInfoMenu_shouldGoToInfoActivity(){
+        activity.onOptionsItemSelected(infoMenu);
+        Intent expectedIntent = new Intent(activity, InfoActivity.class);
+        Intent actual = shadowOf(RuntimeEnvironment.application).getNextStartedActivity();
+        assertEquals(expectedIntent.getComponent(), actual.getComponent());
+    }
+
+
+
+
    /* @Test
     public void testButtonDelFunctionality() {
         String input = inputTv.getText().toString();
